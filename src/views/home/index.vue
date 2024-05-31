@@ -3,12 +3,27 @@
     <Layout>
       <!-- 头部区域 -->
       <Header>
-        
       </Header>
       <Content style="display: flex; height: calc(100vh - 64px)">
         <!-- 左侧区域 -->
-        <div class="left-bar">
-       
+        <div v-if="state.show" :class="`left-bar ${state.toolsBarShow && 'show-tools-bar'}`">
+          <!-- 左侧菜单 -->
+          <Menu :active-name="menuActive" accordion @on-select="showToolsBar" width="65px">
+            <MenuItem v-for="item in leftBar" :key="item.key" :name="item.key" class="menu-item">
+            <Icon :type="item.icon" size="24" />
+            <div>{{ item.name }}</div>
+            </MenuItem>
+          </Menu>
+          <!-- 左侧组件 -->
+          <div class="content" v-show="state.toolsBarShow">
+            <div class="left-panel">
+              <KeepAlive>
+                <component :is="leftBarComponent[menuActive]"></component>
+              </KeepAlive>
+            </div>
+          </div>
+          <!-- 关闭按钮 -->
+          <div :class="`close-btn left-btn ${state.toolsBarShow && 'left-btn-open'}`" @click="hideToolsBar"></div>
         </div>
 
         <!-- 画布区域 -->
@@ -21,13 +36,8 @@
 
         <!-- 属性区域 -->
         <div class="right-bar">
-       
         </div>
-        <!-- 右侧关闭按钮 -->
-        <div
-          :class="`close-btn right-btn ${state.attrBarShow && 'right-btn-open'}`"
-          @click="switchAttrBar"
-        ></div>
+        <div :class="`close-btn right-btn ${state.attrBarShow && 'right-btn-open'}`" @click="switchAttrBar"></div>
       </Content>
     </Layout>
   </div>
@@ -35,13 +45,6 @@
 
 <script name="Home" setup>
 
-// 左侧组件
-import importTmpl from '@/components/importTmpl.vue';
-import fontStyle from '@/components/fontStyle.vue';
-import myMaterial from '@/components/myMaterial/index.vue';
-import tools from '@/components/tools.vue';
-import importSvgEl from '@/components/importSvgEl.vue';
-// 右侧组件
 import layer from '@/components/layer.vue';
 
 // 功能组件
@@ -69,6 +72,23 @@ const state = reactive({
 
 // 左侧菜单渲染
 const menuActive = ref('importTmpl');
+const leftBarComponent = {
+  importTmpl,
+  tools,
+  importSvgEl,
+  fontStyle,
+  layer,
+  myMaterial,
+};
+
+const showToolsBar = (val) => {
+  menuActive.value = val;
+  state.toolsBarShow = true;
+};
+// 隐藏工具条
+const hideToolsBar = () => {
+  state.toolsBarShow = !state.toolsBarShow;
+};
 
 const leftBar = ref([
   {
@@ -131,7 +151,6 @@ provide('fabric', fabric);
 
 </script>
 <style lang="less" scoped>
-
 .home,
 .ivu-layout {
   height: 100vh;
@@ -154,7 +173,9 @@ provide('fabric', fabric);
 
 #workspace {
   flex: 1;
-  width: 100%; position: relative; background: #f1f1f1;
+  width: 100%;
+  position: relative;
+  background: #f1f1f1;
   overflow: hidden;
 }
 
@@ -166,6 +187,4 @@ provide('fabric', fabric);
   height: 100%;
   overflow-y: auto;
 }
-
-
 </style>
