@@ -1,11 +1,3 @@
-<!--
- * @Author: 秦少卫
- * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-17 15:24:00
- * @Description: 导入模板
--->
-
 <template>
   <div>
     <!-- 搜索组件 -->

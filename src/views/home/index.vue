@@ -50,6 +50,13 @@ import layer from '@/components/layer.vue';
 // 功能组件
 import { fabric } from 'fabric';
 
+// 左侧组件
+import importTmpl from '@/components/importTmpl.vue';
+import fontStyle from '@/components/fontStyle.vue';
+import myMaterial from '@/components/myMaterial/index.vue';
+
+
+
 // hooks
 import useSelectListen from '@/hooks/useSelectListen';
 import { useI18n } from 'vue-i18n';
