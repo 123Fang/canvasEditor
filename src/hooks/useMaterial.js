@@ -1,11 +1,3 @@
-/*
- * @Author: 秦少卫
- * @Date: 2024-05-11 11:51:59
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 15:46:39
- * @Description: 素材相关
- */
-
 import dayjs from 'dayjs';
 import { useRouter } from 'vue-router';
 import { uploadImg, createdTempl, getTmplInfo, updataTempl, removeTempl } from '@/api/user';
