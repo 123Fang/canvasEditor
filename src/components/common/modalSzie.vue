@@ -1,11 +1,3 @@
-<!--
- * @Author: 秦少卫
- * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 19:09:45
- * @Description: 公共尺寸
--->
-
 <template>
   <Modal v-model="modal" :title="props.title" footer-hide>
     <h3>

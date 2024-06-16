@@ -1,10 +1,3 @@
-<!--
- * @Author: ShawnPhang
- * @Date: 2023-05-26 17:42:26
- * @Description: 调色板
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 11:48:56
--->
 <template>
   <div class="color-picker">
     <Tabs v-if="modes.length > 1" :value="mode" @update:value="onChangeMode">
