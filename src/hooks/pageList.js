@@ -1,11 +1,3 @@
-/*
- * @Author: 秦少卫
- * @Date: 2024-05-17 11:00:14
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-17 15:13:42
- * @Description: 分页通用
- */
-
 const repoSrc = import.meta.env.APP_APIHOST;
 import axios from 'axios';
 import qs from 'qs';
