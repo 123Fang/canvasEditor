@@ -1,4 +1,3 @@
-
 import { fabric } from 'fabric';
 import Editor from '../Editor';
 import 'fabric-history';
