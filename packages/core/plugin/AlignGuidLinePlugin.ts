@@ -1,10 +1,3 @@
-/*
- * @Author: 秦少卫
- * @Date: 2023-05-21 08:55:25
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:32:48
- * @Description: 辅助线功能
- */
 
 import Editor from '../Editor';
 type IEditor = Editor;

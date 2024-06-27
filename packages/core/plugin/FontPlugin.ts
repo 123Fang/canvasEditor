@@ -1,10 +1,3 @@
-/*
- * @Author: 秦少卫
- * @Date: 2024-04-21 23:51:01
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-17 16:40:07
- * @Description: 自定义字体
- */
 
 // const repoSrc = 'http://localhost:1337';
 import { fabric } from 'fabric';
