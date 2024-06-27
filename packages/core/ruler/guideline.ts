@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { fabric } from 'fabric';
 
 export function setupGuideLine() {
@@ -16,6 +14,7 @@ export function setupGuideLine() {
     originX: 'center',
     originY: 'center',
     padding: 4, // 填充，让辅助线选择范围更大，方便选中
+
     globalCompositeOperation: 'difference',
     axis: 'horizontal',
     // excludeFromExport: true,
