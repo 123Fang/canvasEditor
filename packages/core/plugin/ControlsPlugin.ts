@@ -1,10 +1,3 @@
-/*
- * @Author: 秦少卫
- * @Date: 2023-06-13 23:00:43
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:07:27
- * @Description: 控制条插件
- */
 
 import Editor from '../Editor';
 type IEditor = Editor;
