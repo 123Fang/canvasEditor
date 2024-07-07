@@ -9,29 +9,20 @@ enum POSITION {
   rb = 'Right_Bottom',
   full = 'Full',
 }
-
 type IEditor = Editor;
-type IPosition = POSITION.lt | POSITION.lb | POSITION.rt | POSITION.rb | POSITION.full; // lt 左上 lr 左上 rt 右上  rb 右下 full 平铺 后续可扩展其他功能
-type IDrawOps = {
-  text: string;
-  size: number;
-  fontFamily: string;
-  color: string;
-  isRotate: boolean;
-  position: IPosition;
-};
 
-const defaultOptions: IDrawOps = {
-  text: '',
-  size: 24,
-  isRotate: false, // 是否倾斜
-  fontFamily: '汉体', // 可考虑自定义字体
-  color: '#ccc', // 可考虑自定义颜色
-  position: POSITION.lt,
-};
 
 class WaterMarkPlugin {
-  constructor(){}
+  public canvas: fabric.Canvas;
+  public editor: IEditor;
+  constructor(canvas: fabric.Canvas, editor: IEditor) {
+    this.canvas = canvas;
+    this.editor = editor;
+    this.init();
+  }
+  init() {
+    console.log('init-------init')
+  }
 };
 
 export default WaterMarkPlugin;
