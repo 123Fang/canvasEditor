@@ -46,11 +46,30 @@ class WaterMarkPlugin {
     console.log('init-------init')
     this.editor.on('sizeChange', this.drawWaterMark.bind(this));
   }
+
+  private drawing: Record<IPosition, (...arg: any[]) => void> = {
+    [POSITION.lt]: (width: number, height: number, cb: (imgString: string) => void) => {
+     
+
+      
+    }
+  };
   drawWaterMark(ops: IDrawOps) {
     this.drawOps = Object.assign(cloneDeep(this.drawOps), ops);
     if (!this.drawOps.text) return;
     const workspace = this.canvas.getObjects().find((item: any) => item.id === 'workspace');
     const { width, height, left, top }: any = workspace;
+
+    this.drawing[this.drawOps?.position](width, height, (imgString: string) => {
+      this.canvas.overlayImage = undefined;
+      this.hadDraw = true;
+      this.canvas.setOverlayImage(imgString, this.canvas.renderAll.bind(this.canvas), {
+        left: left || 0,
+        top: top || 0,
+        originX: 'left',
+        originY: 'top',
+      });
+    });
 
 
     
