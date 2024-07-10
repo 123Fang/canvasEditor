@@ -47,12 +47,32 @@ class WaterMarkPlugin {
     this.editor.on('sizeChange', this.drawWaterMark.bind(this));
   }
 
+  private createCanvas(width: number, height: number) {
+    const waterCanvas: HTMLCanvasElement = document.createElement('canvas');
+    waterCanvas.width = width;
+    waterCanvas.height = height;
+    waterCanvas.style.position = 'fixed';
+    waterCanvas.style.opacity = '0';
+    waterCanvas.style.zIndex = '-1';
+    return waterCanvas;
+  }
+
   private drawing: Record<IPosition, (...arg: any[]) => void> = {
     [POSITION.lt]: (width: number, height: number, cb: (imgString: string) => void) => {
-     
+      let waterCanvas: HTMLCanvasElement | null = this.createCanvas(width, height);
+      const w = waterCanvas.width || width;
+      let ctx: CanvasRenderingContext2D | null = waterCanvas.getContext('2d')!;
+      ctx.fillStyle = this.drawOps.color;
+      ctx.font = `${this.drawOps.size}px ${this.drawOps.fontFamily}`;
+      ctx.fillText(this.drawOps.text, 10, this.drawOps.size + 10, w - 20);
+      cb && cb(waterCanvas.toDataURL());
+      waterCanvas = null;
+      ctx = null;
 
-      
-    }
+    },
+    [POSITION.rt]: (width: number, height: number, cb: (imgString: string) => void) => {
+      // 
+    },
   };
   drawWaterMark(ops: IDrawOps) {
     this.drawOps = Object.assign(cloneDeep(this.drawOps), ops);
