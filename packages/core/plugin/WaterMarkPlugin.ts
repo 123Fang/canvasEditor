@@ -86,8 +86,17 @@ class WaterMarkPlugin {
       waterCanvas = null;
       ctx = null;
     },
+
     [POSITION.lb]: (width: number, height: number, cb: (imgString: string) => void) => { 
-      // 
+    
+    },
+
+    [POSITION.rb]: (width: number, height: number, cb: (imgString: string) => void) => { 
+    
+    },
+    
+    [POSITION.full]: (width: number, height: number, cb: (imgString: string) => void) => { 
+    
     }
     
   };
