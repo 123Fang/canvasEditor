@@ -71,8 +71,25 @@ class WaterMarkPlugin {
 
     },
     [POSITION.rt]: (width: number, height: number, cb: (imgString: string) => void) => {
-      // 
+      let waterCanvas: HTMLCanvasElement | null = this.createCanvas(width, height);
+      let ctx: CanvasRenderingContext2D | null = waterCanvas.getContext('2d')!;
+      const w = waterCanvas.width || width;
+      ctx.fillStyle = this.drawOps.color;
+      ctx.font = `${this.drawOps.size}px ${this.drawOps.fontFamily}`;
+      ctx.fillText(
+        this.drawOps.text,
+        w - ctx.measureText(this.drawOps.text).width - 20,
+        this.drawOps.size + 10,
+        w - 20
+      );
+      cb && cb(waterCanvas.toDataURL());
+      waterCanvas = null;
+      ctx = null;
     },
+    [POSITION.lb]: (width: number, height: number, cb: (imgString: string) => void) => { 
+      // 
+    }
+    
   };
   drawWaterMark(ops: IDrawOps) {
     this.drawOps = Object.assign(cloneDeep(this.drawOps), ops);
