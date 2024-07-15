@@ -87,11 +87,34 @@ class WaterMarkPlugin {
       ctx = null;
     },
 
-    [POSITION.lb]: (width: number, height: number, cb: (imgString: string) => void) => { 
-    
+    [POSITION.lb]: (width: number, height: number, cb: (imgString: string) => void) => {
+      let waterCanvas: HTMLCanvasElement | null = this.createCanvas(width, height);
+      let ctx: CanvasRenderingContext2D | null = waterCanvas.getContext('2d')!;
+      const w = waterCanvas.width || width;
+      const h = waterCanvas.height || height;
+      ctx.fillStyle = this.drawOps.color;
+      ctx.font = `${this.drawOps.size}px ${this.drawOps.fontFamily}`;
+      ctx.fillText(this.drawOps.text, 10, h - this.drawOps.size, w - 20);
+      cb && cb(waterCanvas.toDataURL());
+      waterCanvas = null;
+      ctx = null;
     },
 
-    [POSITION.rb]: (width: number, height: number, cb: (imgString: string) => void) => { 
+    [POSITION.rb]: (width: number, height: number, cb: (imgString: string) => void) => {
+      let waterCanvas: HTMLCanvasElement | null = this.createCanvas(width, height);
+      let ctx: CanvasRenderingContext2D | null = waterCanvas.getContext('2d')!;
+      const w = waterCanvas.width || width;
+      ctx.fillStyle = this.drawOps.color;
+      ctx.font = `${this.drawOps.size}px ${this.drawOps.fontFamily}`;
+      ctx.fillText(
+        this.drawOps.text,
+        w - ctx.measureText(this.drawOps.text).width - 20,
+        height - this.drawOps.size,
+        width - 20
+      );
+      cb && cb(waterCanvas.toDataURL());
+      waterCanvas = null;
+      ctx = null;
     
     },
     
