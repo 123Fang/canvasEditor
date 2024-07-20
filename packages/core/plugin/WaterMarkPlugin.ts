@@ -119,6 +119,39 @@ class WaterMarkPlugin {
     },
     
     [POSITION.full]: (width: number, height: number, cb: (imgString: string) => void) => { 
+      const angle = -30; // 按逆时针30度算
+      const R = (angle * Math.PI) / 180;
+      const font = `${this.drawOps.size}px ${this.drawOps.fontFamily}`;
+      let waterCanvas: HTMLCanvasElement | null = this.createCanvas(width, height);
+      let ctx: CanvasRenderingContext2D | null = waterCanvas.getContext('2d')!;
+      ctx.font = font;
+      const textW = ctx.measureText(this.drawOps.text).width + 40;
+      let patternCanvas: HTMLCanvasElement | null = this.createCanvas(
+        this.drawOps.isRotate ? textW * Math.abs(Math.cos(R)) + this.drawOps.size : textW,
+        this.drawOps.isRotate
+          ? textW * Math.abs(Math.sin(R)) + this.drawOps.size
+          : this.drawOps.size + 20
+      );
+      document.body.appendChild(patternCanvas);
+      let ctxWater: CanvasRenderingContext2D | null = patternCanvas.getContext('2d')!;
+      ctxWater.textAlign = 'left';
+      ctxWater.textBaseline = 'top';
+      ctxWater.font = font;
+      ctxWater.fillStyle = `${this.drawOps.color}`;
+      if (this.drawOps.isRotate) {
+        ctxWater.translate(0, textW * Math.abs(Math.sin(R)));
+        ctxWater.rotate(R);
+        ctxWater.fillText(this.drawOps.text, 0, 0);
+      } else {
+        ctxWater.fillText(this.drawOps.text, 10, 10);
+      }
+      ctx.fillStyle = ctx.createPattern(patternCanvas, 'repeat')!;
+      ctx.fillRect(0, 0, width, height);
+      cb && cb(waterCanvas.toDataURL());
+      waterCanvas = null;
+      patternCanvas = null;
+      ctx = null;
+      ctxWater = null;
     
     }
     
