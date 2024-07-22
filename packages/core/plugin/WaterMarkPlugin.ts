@@ -177,6 +177,18 @@ class WaterMarkPlugin {
     
     console.log(width, height, left, top)
   }
+
+  clearWaterMMatk() {
+    
+  }
+
+  init() {
+    this.editor.on('sizeChange', this.drawWaterMark.bind(this));
+  }
+
+  destroy() {
+    this.editor.off('sizeChange', this.drawWaterMark);
+  }
 };
 
 export default WaterMarkPlugin;
