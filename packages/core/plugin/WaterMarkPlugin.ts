@@ -9,6 +9,7 @@ enum POSITION {
   rb = 'Right_Bottom',
   full = 'Full',
 }
+
 type IEditor = Editor;
 type IPosition = POSITION.lt | POSITION.lb | POSITION.rt | POSITION.rb | POSITION.full; // lt 左上 lr 左上 rt 右上  rb 右下 full 平铺 后续可扩展其他功能
 type IDrawOps = {
@@ -20,7 +21,6 @@ type IDrawOps = {
   position: IPosition;
 };
 
-
 const defaultOptions: IDrawOps = {
   text: '',
   size: 24,
@@ -30,21 +30,17 @@ const defaultOptions: IDrawOps = {
   position: POSITION.lt,
 };
 
-
-
 class WaterMarkPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
-  private drawOps: IDrawOps = defaultOptions;
+  static pluginName = 'WaterMarkPlugin';
+  static apis = ['drawWaterMark', 'clearWaterMMatk'];
   private hadDraw = false;
+  private drawOps: IDrawOps = defaultOptions;
   constructor(canvas: fabric.Canvas, editor: IEditor) {
     this.canvas = canvas;
     this.editor = editor;
     this.init();
-  }
-  init() {
-    console.log('init-------init')
-    this.editor.on('sizeChange', this.drawWaterMark.bind(this));
   }
 
   private createCanvas(width: number, height: number) {
@@ -57,6 +53,7 @@ class WaterMarkPlugin {
     return waterCanvas;
   }
 
+  // 待优化
   private drawing: Record<IPosition, (...arg: any[]) => void> = {
     [POSITION.lt]: (width: number, height: number, cb: (imgString: string) => void) => {
       let waterCanvas: HTMLCanvasElement | null = this.createCanvas(width, height);
@@ -68,7 +65,6 @@ class WaterMarkPlugin {
       cb && cb(waterCanvas.toDataURL());
       waterCanvas = null;
       ctx = null;
-
     },
     [POSITION.rt]: (width: number, height: number, cb: (imgString: string) => void) => {
       let waterCanvas: HTMLCanvasElement | null = this.createCanvas(width, height);
@@ -86,7 +82,6 @@ class WaterMarkPlugin {
       waterCanvas = null;
       ctx = null;
     },
-
     [POSITION.lb]: (width: number, height: number, cb: (imgString: string) => void) => {
       let waterCanvas: HTMLCanvasElement | null = this.createCanvas(width, height);
       let ctx: CanvasRenderingContext2D | null = waterCanvas.getContext('2d')!;
@@ -99,7 +94,6 @@ class WaterMarkPlugin {
       waterCanvas = null;
       ctx = null;
     },
-
     [POSITION.rb]: (width: number, height: number, cb: (imgString: string) => void) => {
       let waterCanvas: HTMLCanvasElement | null = this.createCanvas(width, height);
       let ctx: CanvasRenderingContext2D | null = waterCanvas.getContext('2d')!;
@@ -115,10 +109,8 @@ class WaterMarkPlugin {
       cb && cb(waterCanvas.toDataURL());
       waterCanvas = null;
       ctx = null;
-    
     },
-    
-    [POSITION.full]: (width: number, height: number, cb: (imgString: string) => void) => { 
+    [POSITION.full]: (width: number, height: number, cb: (imgString: string) => void) => {
       const angle = -30; // 按逆时针30度算
       const R = (angle * Math.PI) / 180;
       const font = `${this.drawOps.size}px ${this.drawOps.fontFamily}`;
@@ -152,16 +144,14 @@ class WaterMarkPlugin {
       patternCanvas = null;
       ctx = null;
       ctxWater = null;
-    
-    }
-    
+    },
   };
+
   drawWaterMark(ops: IDrawOps) {
     this.drawOps = Object.assign(cloneDeep(this.drawOps), ops);
     if (!this.drawOps.text) return;
     const workspace = this.canvas.getObjects().find((item: any) => item.id === 'workspace');
     const { width, height, left, top }: any = workspace;
-
     this.drawing[this.drawOps?.position](width, height, (imgString: string) => {
       this.canvas.overlayImage = undefined;
       this.hadDraw = true;
@@ -172,14 +162,14 @@ class WaterMarkPlugin {
         originY: 'top',
       });
     });
-
-
-    
-    console.log(width, height, left, top)
   }
 
   clearWaterMMatk() {
-    
+    if (!this.hadDraw) return;
+    this.canvas.overlayImage = undefined;
+    this.canvas.renderAll();
+    this.hadDraw = false;
+    this.drawOps = defaultOptions;
   }
 
   init() {
@@ -189,6 +179,6 @@ class WaterMarkPlugin {
   destroy() {
     this.editor.off('sizeChange', this.drawWaterMark);
   }
-};
+}
 
 export default WaterMarkPlugin;
