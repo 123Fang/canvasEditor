@@ -33,3 +33,9 @@ export const updataTempl = (id: any, data: any) => instance.put(`/api/user-templ
 
 // 查询素材列表
 export const getTmplInfo = (data: any) => instance.get(`/api/user-templs/${data}`);
+
+
+
+////////////
+// 详情
+export const getUserInfo = (data: any) => instance.get('/api/users/me', data);
