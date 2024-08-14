@@ -3,6 +3,7 @@ import { createI18n } from 'vue-i18n';
 import zh from 'view-ui-plus/dist/locale/zh-CN';
 import en from 'view-ui-plus/dist/locale/en-US'; //新版本把'iview'改成'view-design'
 import CN from './zh.json';
+import US from './en.json';
 import { getLocal, setLocal } from '@/utils/local';
 import { LANG } from '@/config/constants/app';
 
