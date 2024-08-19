@@ -32,4 +32,22 @@
 //   }
 // }
 
+.ivu-menu-vertical .menu-item {
+  text-align: center;
+  padding: 10px 2px;
+  box-sizing: border-box;
+  font-size: 12px;
 
+  & > i {
+    margin: 0;
+  }
+}
+
+:deep(.ivu-layout-header) {
+  --height: 45px;
+  padding: 0 10px;
+  border-bottom: 1px solid #eef2f8;
+  background: #fff;
+  height: var(--height);
+  line-height: var(--height);
+}
