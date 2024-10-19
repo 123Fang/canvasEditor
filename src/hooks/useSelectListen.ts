@@ -9,22 +9,22 @@ interface Selector {
 }
 
 export default function useSelectListen(canvasEditor: Editor) {
-  const state = reactive<Selector>({
-    mSelectMode: SelectMode.EMPTY,
-    mSelectOneType: '',
-    mSelectId: '', // 选择id
-    mSelectIds: [], // 选择id
-    mSelectActive: [],
-  });
+  // const state = reactive<Selector>({
+  //   mSelectMode: SelectMode.EMPTY,
+  //   mSelectOneType: '',
+  //   mSelectId: '', // 选择id
+  //   mSelectIds: [], // 选择id
+  //   mSelectActive: [],
+  // });
 
-  const selectOne = (e: [fabric.Object]) => {
-    state.mSelectMode = SelectMode.ONE;
-    if (e[0]) {
-      state.mSelectId = e[0].id;
-      state.mSelectOneType = e[0].type;
-      state.mSelectIds = e.map((item) => item.id);
-    }
-  };
+  // const selectOne = (e: [fabric.Object]) => {
+  //   state.mSelectMode = SelectMode.ONE;
+  //   if (e[0]) {
+  //     state.mSelectId = e[0].id;
+  //     state.mSelectOneType = e[0].type;
+  //     state.mSelectIds = e.map((item) => item.id);
+  //   }
+  // };
 
   const selectMulti = (e: fabric.Object[]) => {
     state.mSelectMode = SelectMode.MULTI;
