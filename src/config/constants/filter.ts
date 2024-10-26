@@ -182,14 +182,6 @@ export const combinationFilters = [
         max: 2.2,
         step: 0.01,
       },
-      // { // for add comit------------fx
-      //   key: 'red',
-      //   value: 0,
-      //   uiType: uiType.NUMBER,
-      //   min: 0.01,
-      //   max: 2.2,
-      //   step: 0.01,
-      // },
     ],
     handler(red: number | string, green: number | string, blue: number | string) {
       return {
