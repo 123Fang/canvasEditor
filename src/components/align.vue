@@ -1,3 +1,11 @@
+<!--
+ * @Author: 秦少卫
+ * @Date: 2022-09-03 19:16:55
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-05-21 15:46:01
+ * @Description: 组合元素对齐
+-->
+
 <template>
   <div v-if="mixinState.mSelectMode === 'multiple'" class="attr-item-box">
     <!-- <h3>对齐</h3> -->
